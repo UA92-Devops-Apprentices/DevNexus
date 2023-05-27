@@ -1,0 +1,41 @@
+services:
+  frontend:
+    build:
+      context: './frontend'
+      network: host
+    environment:
+    ports:
+      - "5173:3000"
+    volumes:
+      - type: bind
+        source: './frontend'
+        target: '/usr/src/app'
+      - type: volume
+        source: exclude-frontend
+        target: '/usr/src/app/node_modules'
+  backend:
+    build:
+      context: './backend'
+      network: host
+    ports:
+      - "5174:3000"
+    environment:
+    volumes:
+      - type: bind
+        source: './backend'
+        target: '/usr/src/app/'
+      - type: volume
+        source: exclude-backend
+        target: '/usr/src/app/node_modules'
+
+  nginx:
+    build: './nginx-dev'
+    ports:
+      - "80:80"
+      - "8080:8080"
+    depends_on:
+      - frontend 
+
+volumes:
+  exclude-frontend:
+  exclude-backend:
