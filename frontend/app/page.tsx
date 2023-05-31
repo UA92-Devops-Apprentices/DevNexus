@@ -1,8 +1,8 @@
-import Image from 'next/image'
+import DynamicNav from '@/assets/components/dynamic-nav/dynamic-nav'
 
 export default function Home() {
   return (
-    <h1>hi</h1>
+    <DynamicNav></DynamicNav>
     
     
   )
